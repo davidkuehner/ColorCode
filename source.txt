@@ -1,0 +1,17 @@
+orange = YELLOW + RED;
+IMAGE << orange;
+darkerOrange = orange * 1.1;
+IMAGE << darkerOrange;
+
+i = 1;
+orange = orange + (CYAN / 100);
+while(orange != BLACK)
+{
+	if(i/2 < 42)
+	{
+		orange = orange * i;
+		i = i + 0.1;
+	}
+	
+	IMAGE << orange;
+}
