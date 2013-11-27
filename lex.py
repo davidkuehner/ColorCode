@@ -3,11 +3,7 @@ import ply.lex as lex
 reserved_words = (
 	'while',
 	'if',
-	'image',
-	'red',
-	'green',
-	'blue',
-	#todo : complete list of color
+	'IMAGE',
 )
 
 tokens = (
@@ -18,7 +14,7 @@ tokens = (
 	'CMP_OP',
 	'STREAM_OUT',
 	'IDENTIFIER',
-) + tuple(map(lambda s:s.upper(),reserved_words))
+) + reserved_words
 
 literals = '();={}'
 
@@ -30,16 +26,20 @@ def t_MUL_OP(t):
 	r'[*/]'
 	return t
 	
-def t_CMP_OP(t):
-	r'[><]|==|!='
-	return t
-
 def t_STREAM_OUT(t):
 	r'<<'
 	return t
 	
+def t_CMP_OP(t):
+	r'[><]|==|!='
+	return t
+	
+def t_IMAGE(t):
+	r'IMAGE'
+	return t
+
 def t_COLOR(t):
-	r'todo'#// TODO match reserved words
+	r'[A-Z]+'
 	return t
 
 def t_NUMBER(t):
@@ -54,7 +54,7 @@ def t_NUMBER(t):
 def t_IDENTIFIER(t):
 	r'[A-Za-z_]\w*'
 	if t.value in reserved_words:
-		t.type = t.value.upper()
+		t.type = t.value
 	return t
 	
 def t_newline(t):
