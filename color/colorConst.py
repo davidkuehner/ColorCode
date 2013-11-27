@@ -1,7 +1,7 @@
 # -*- coding: latin-1 -*-
 
 """ Css Colors from : http://www.w3schools.com/tags/ref_Color_tryit.asp """
-from color import Color
+from color.color import Color
 
 c = {
 'ALICEBLUE': Color(r=240, g=248, b=255),
