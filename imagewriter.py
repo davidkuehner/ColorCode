@@ -6,7 +6,7 @@ import color
 from color.color import Color
 import math
 
-def writeSquareImage(colorList, filename, finalSize = (500, 500)):
+def writeSquareImage(colorList, filename, finalWidth = 600):
 	length = len(colorList)
 	height = math.floor(math.sqrt(length))
 	width = math.ceil(length / height)
@@ -20,6 +20,7 @@ def writeSquareImage(colorList, filename, finalSize = (500, 500)):
 	except IndexError:
 		pass # Finished
 	
-	image = image.resize(finalSize)
+	finalHeight = int(height / width * finalWidth)
+	image = image.resize((finalWidth, finalHeight))
 	image.save(filename)
 	image.show(filename)
