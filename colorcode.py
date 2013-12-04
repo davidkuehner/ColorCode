@@ -7,8 +7,9 @@ import color
 from color import colorConst as const
 from color.color import Color
 import sys
-
-import code, traceback, signal
+import imagewriter
+from imagewriter import writeSquareImage
+import os
 
 operations = {
 	'+' : lambda x, y: x+y,
@@ -83,4 +84,4 @@ if __name__ == '__main__':
 	prog = open(sys.argv[1]).read()
 	ast = parse(prog)
 	ast.execute()
-	print(image)
+	writeSquareImage(image, os.path.splitext(sys.argv[1])[0]+'.png')
