@@ -1,6 +1,6 @@
 import ply.yacc as yacc
-from lex import tokens
-import AST
+from .lex import tokens
+from . import AST
 
 
 operations = {
@@ -11,6 +11,7 @@ operations = {
 }
 
 precedence = (
+	( 'left' , 'CMP_OP' ),
 	( 'left' , 'ADD_OP' ),
 	( 'left' , 'MUL_OP' ),
 	( 'right' , 'UMINUS' ),
