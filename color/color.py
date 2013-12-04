@@ -1,13 +1,23 @@
 # -*- coding: latin-1 -*-
 
 class Color:
-	'''	Color is a representation of colors. '''
+	'''	Color is a representation of colors. 
+	
+	Attribute:
+		CONST_LAMBDA	Lambda used for float comparison ( 1/2550 )
+	
+	'''
+	CONST_LAMBDA = 0.0004
 	
 	colorOpColor = {
-		'+' : lambda col1,col2: Color( c=col1.getCyan()+col2.getCyan(), m=col1.getMagenta()+col2.getMagenta(), y=col1.getYellow()+col2.getYellow() ),
-		'-' : lambda col1,col2: Color( c=col1.getCyan()-col2.getCyan(), m=col1.getMagenta()-col2.getMagenta(), y=col1.getYellow()-col2.getYellow() ),
-		'*' : lambda col1,col2: Color( c=col1.getCyan()*col2.getCyan(), m=col1.getMagenta()*col2.getMagenta(), y=col1.getYellow()*col2.getYellow() ),
-		'/' : lambda col1,col2: Color( c=col1.getCyan()/col2.getCyan(), m=col1.getMagenta()/col2.getMagenta(), y=col1.getYellow()/col2.getYellow() ),
+		'+'  : lambda col1,col2: Color( c=col1.getCyan()+col2.getCyan(), m=col1.getMagenta()+col2.getMagenta(), y=col1.getYellow()+col2.getYellow() ),
+		'-'  : lambda col1,col2: Color( c=col1.getCyan()-col2.getCyan(), m=col1.getMagenta()-col2.getMagenta(), y=col1.getYellow()-col2.getYellow() ),
+		'*'  : lambda col1,col2: Color( c=col1.getCyan()*col2.getCyan(), m=col1.getMagenta()*col2.getMagenta(), y=col1.getYellow()*col2.getYellow() ),
+		'/'  : lambda col1,col2: Color( c=col1.getCyan()/col2.getCyan(), m=col1.getMagenta()/col2.getMagenta(), y=col1.getYellow()/col2.getYellow() ),
+		'==' : lambda col1,col2: abs( col1.getCyan()-col2.getCyan() ) < Color.CONST_LAMBDA and abs( col1.getMagenta()-col2.getMagenta() ) < Color.CONST_LAMBDA and abs( col1.getYellow()-col2.getYellow() ) < Color.CONST_LAMBDA ,
+		'<'	 : lambda col1,col2: col1.getCyan() < col2.getCyan() and col1.getMagenta() < col2.getMagenta() and col1.getYellow() < col2.getYellow(),
+		'>'	 : lambda col1,col2: col1.getCyan() > col2.getCyan() and col1.getMagenta() > col2.getMagenta() and col1.getYellow() > col2.getYellow(),
+
 	}
 	
 	colorOpFloat = {
@@ -98,6 +108,30 @@ class Color:
 			return Color.colorOpFloat['-'](self,other)
 		else:
 			raise NameError('Wrong type substracted to Color. \n Should be Color or float')
+			
+	def __eq__(self, other):
+		if isinstance(other,Color):
+			return Color.colorOpColor['=='](self,other)
+		else:
+			raise NameError('Wrong type compare to Color. \n Should be Color only')
+			
+	def __ne__(self, other):
+		if isinstance(other,Color):
+			return not Color.colorOpColor['=='](self,other)
+		else:
+			raise NameError('Wrong type compare to Color. \n Should be Color only')
+			
+	def __lt__(self, other):
+		if isinstance(other,Color):
+			return Color.colorOpColor['<'](self,other)
+		else:
+			raise NameError('Wrong type compare to Color. \n Should be Color only')
+			
+	def __gt__(self, other):
+		if isinstance(other,Color):
+			return Color.colorOpColor['>'](self,other)
+		else:
+			raise NameError('Wrong type compare to Color. \n Should be Color only')
 		
 	# Tools
 	def hasZeroValue(self):
@@ -179,8 +213,26 @@ if __name__ == "__main__":
 	print ( choco )
 	
 	indian = const.c['MOCCASIN']
-	print ( "\n>>> indian = const.c['CHOCOLATE']")
+	print ( "\n>>> indian = const.c['MOCCASIN']")
 	print ( indian )
+	
+	print ( "\n>>> indian == choco")
+	print ( indian == choco )
+	
+	print ( "\n>>> choco == choco")
+	print ( choco == choco )
+	
+	print ( "\n>>> indian != choco")
+	print ( indian != choco )
+	
+	print ( "\n>>> indian != indian")
+	print ( indian != indian )
+	
+	print ( "\n>>> indian < choco")
+	print ( indian < choco )
+	
+	print ( "\n>>> indian > choco")
+	print ( indian > choco )
 	
 	
 	
