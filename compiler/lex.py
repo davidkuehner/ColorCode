@@ -4,6 +4,8 @@ reserved_words = (
 	'while',
 	'if',
 	'IMAGE',
+	'function',
+	'return',
 )
 
 tokens = (
@@ -16,7 +18,7 @@ tokens = (
 	'IDENTIFIER',
 ) + reserved_words
 
-literals = '();={}'
+literals = '();={},'
 
 def t_ADD_OP(t):
 	r'[+-]'

@@ -141,6 +141,22 @@ class EntryNode(Node):
     type = 'ENTRY'
     def __init__(self):
         Node.__init__(self, None)
+		
+class FunctionNode(Node):
+	type = 'function'
+	def __init__(self, name, children):
+		Node.__init__(self, children)
+		self.name = name
+		
+	def __repr__(self):
+		return "%s %s"% (self.type, self.name)
+		
+class ParametersNode(Node):
+	type = 'parameters'
+	
+class CodeNode(Node):
+	type = 'code'
+		
     
 def addToClass(cls):
     ''' Décorateur permettant d'ajouter la fonction décorée en tant que méthode
