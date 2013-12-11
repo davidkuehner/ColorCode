@@ -132,6 +132,18 @@ class Color:
 			return Color.colorOpColor['>'](self,other)
 		else:
 			raise NameError('Wrong type compare to Color. \n Should be Color only')
+			
+	def __le__(self, other):
+		if isinstance(other,Color):
+			return Color.colorOpColor['<'](self,other) or Color.colorOpColor['=='](self,other)
+		else:
+			raise NameError('Wrong type compare to Color. \n Should be Color only')
+			
+	def __ge__(self, other):
+		if isinstance(other,Color):
+			return Color.colorOpColor['>'](self,other) or Color.colorOpColor['=='](self,other)
+		else:
+			raise NameError('Wrong type compare to Color. \n Should be Color only')
 		
 	# Tools
 	def hasZeroValue(self):
@@ -162,13 +174,15 @@ class Color:
 		
 		
 if __name__ == "__main__":
-
-	import colorConst as const
 	
 	print ( "\n============================================")
 	print (   "=       Color module tests and how to      =")
 	print (   "============================================")
 	
+	ALICEBLUE = Color(r=240, g=248, b=255),
+	CHOCOLATE = Color(r=210, g=105, b=30),
+	MOCCASIN = Color(r=255, g=228, b=181),
+
 	myColor = Color(c=0.15, m=0.3, y=0.6)
 	print ( '\n>>> myColor = Color(c=0.15, m=0.3, y=0.6)' )
 	print ( myColor )
@@ -204,16 +218,16 @@ if __name__ == "__main__":
 	print ( "\n>>> myColor - newColor" )
 	print ( myColor - newColor )
 	
-	alice = const.c['ALICEBLUE']
-	print ( "\n>>> alice = const.c['ALICEBLUE']")
+	alice = ALICEBLUE
+	print ( "\n>>> alice = ALICEBLUE")
 	print ( alice )
 	
-	choco = const.c['CHOCOLATE']
-	print ( "\n>>> choco = const.c['CHOCOLATE']")
+	choco = CHOCOLATE
+	print ( "\n>>> choco = CHOCOLATE")
 	print ( choco )
 	
-	indian = const.c['MOCCASIN']
-	print ( "\n>>> indian = const.c['MOCCASIN']")
+	indian = MOCCASIN
+	print ( "\n>>> indian = MOCCASIN")
 	print ( indian )
 	
 	print ( "\n>>> indian == choco")
@@ -233,6 +247,24 @@ if __name__ == "__main__":
 	
 	print ( "\n>>> indian > choco")
 	print ( indian > choco )
+	
+	print ( "\n>>> indian >= choco")
+	print ( indian >= choco )
+	
+	print ( "\n>>> choco >= indian")
+	print ( choco >= indian )
+	
+	print ( "\n>>> indian >= indian")
+	print ( indian >= indian )
+	
+	print ( "\n>>> indian <= choco")
+	print ( indian <= choco )
+	
+	print ( "\n>>> choco <= indian")
+	print (  choco <= indian )
+	
+	print ( "\n>>> indian <= indian")
+	print ( indian <= indian )
 	
 	
 	

@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
-import AST
-from AST import addToClass
-from functools import reduce
-import color
+from compiler import AST
+from compiler.AST import addToClass
+
 from color import colorConst as const
-from color.color import Color
+from functools import reduce
+
 import sys
-import imagewriter
-from imagewriter import writeSquareImage
 import os
 
 operations = {
@@ -79,7 +77,10 @@ def execute(self):
 	return reduce(comparators[self.op], args)
 		
 if __name__ == '__main__':
-	from parser import parse
+	from compiler import parser
+	from compiler.parser import parse
+	from compiler import imagewriter
+	from compiler.imagewriter import writeSquareImage
 	import sys
 	prog = open(sys.argv[1]).read()
 	ast = parse(prog)
