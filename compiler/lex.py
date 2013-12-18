@@ -5,7 +5,6 @@ reserved_words = (
 	'if',
 	'IMAGE',
 	'function',
-	'return',
 )
 
 tokens = (

@@ -119,9 +119,6 @@ class AssignNode(Node):
 class OutNode(Node):
     type = '<<'
     
-class PrintNode(Node):
-    type = 'print'
-    
 class WhileNode(Node):
     type = 'while'
     

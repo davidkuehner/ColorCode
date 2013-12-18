@@ -76,9 +76,9 @@ def p_condition(p):
 
 def p_statement(p):
 	"""statement : assignation ';'
+				| expression ';'
 				| structure
-				| condition
-				| call ';'"""
+				| condition"""
 	p[0] = p[1]
 
 def p_assignation(p):
@@ -90,13 +90,14 @@ def p_stream_out(p):
 	p[0] = AST.OutNode([AST.TokenNode(p[1]), p[3]])
 
 def p_expression_identifier(p):
-	"""expression : IDENTIFIER"""
+	"""expression : IDENTIFIER
+				| NUMBER
+				| COLOR"""
 	p[0] = AST.TokenNode(p[1])
-
-def p_expression_numcolor(p):
-	"""expression : NUMBER
-				  | COLOR"""
-	p[0] = AST.TokenNode(p[1])
+	
+def p_expression_call(p):
+	"""expression : call"""
+	p[0] = p[1]
 
 def p_expression_uminus(p):
 	"""expression : ADD_OP expression  %prec UMINUS"""

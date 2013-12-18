@@ -22,14 +22,42 @@ comparators = {
 	'!=' : lambda x, y: x!=y,
 }
 
+parameters = []
 vars = {}
 image = []
+functions = {}
+returns = []
 	
 @addToClass(AST.ProgramNode)
 def execute(self):
 	for c in self.children:
-		c.execute()
+		functions[c.name] = c
+
+	functions['main'].execute()
 		
+@addToClass(AST.FunctionNode)
+def execute(self):
+	for param_name in reversed(self.children[0].children):
+		vars[param_name.tok] = parameters.pop()
+		
+	self.children[1].execute()
+	
+@addToClass(AST.CodeNode)
+def execute(self):
+	result = None
+	for c in self.children:
+		result = c.execute()
+		
+	returns.append(result)
+		
+@addToClass(AST.CallNode)
+def execute(self):
+	for param in self.children[1].children:
+		parameters.append(param.execute())
+
+	functions[self.children[0].tok].execute()
+	return returns.pop()
+
 @addToClass(AST.TokenNode)
 def execute(self):
 	if isinstance(self.tok, str):
@@ -56,10 +84,6 @@ def execute(self):
 @addToClass(AST.OutNode)
 def execute(self):
 	image.append(self.children[1].execute())
-	
-@addToClass(AST.PrintNode)
-def execute(self):
-	print(self.children[0].execute())
 	
 @addToClass(AST.WhileNode)
 def execute(self):
