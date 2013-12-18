@@ -105,8 +105,15 @@ if __name__ == '__main__':
 	from compiler.parser import parse
 	from compiler import imagewriter
 	from compiler.imagewriter import writeSquareImage
+	from compiler import semantic
+	from compiler.semantic import verify
 	import sys
 	prog = open(sys.argv[1]).read()
 	ast = parse(prog)
-	ast.execute()
-	writeSquareImage(image, os.path.splitext(sys.argv[1])[0]+'.png')
+	errors = verify(ast)
+	if len(errors) == 0:
+		ast.execute()
+		writeSquareImage(image, os.path.splitext(sys.argv[1])[0]+'.png')
+	else:
+		for error in errors:
+			print(error)
