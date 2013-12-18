@@ -29,6 +29,10 @@ def p_program_recursive(p):
 def p_func(p):
 	"""func : function IDENTIFIER '(' parameters ')' '{' code '}' """
 	p[0] = AST.FunctionNode( p[2], [ p[4], p[7] ] )
+	
+def p_call(p):
+	"""call : IDENTIFIER '(' call_parameters ')'"""
+	p[0] = AST.CallNode( [ AST.TokenNode( p[1] ), p[3] ] )
 
 def p_code_recursive(p):
 	"""code : statement code"""
@@ -38,7 +42,7 @@ def p_code_statement(p):
 	"""code : statement"""
 	p[0] = AST.CodeNode( p[1] )
 
-def p_parameters_recursive(p):
+def p_parameters_recursive(p): 
 	"""parameters : IDENTIFIER ',' parameters"""
 	p[0] = AST.ParametersNode( [  AST.TokenNode( p[1] ) ] + p[3].children )
 
@@ -48,6 +52,18 @@ def p_parameters_statement(p):
 
 def p_parameters_nothing(p):
 	"""parameters : """
+	p[0] = AST.ParametersNode( None )
+	
+def p_call_parameters_recursive(p): 
+	"""call_parameters : expression ',' call_parameters"""
+	p[0] = AST.ParametersNode( [ p[1] ] + p[3].children )
+	
+def p_call_parameters(p):
+	"""call_parameters : expression"""
+	p[0] = AST.ParametersNode( p[1] )
+
+def p_call_parameters_nothing(p):
+	"""call_parameters : """
 	p[0] = AST.ParametersNode( None )
 
 def p_structure(p):
@@ -61,7 +77,8 @@ def p_condition(p):
 def p_statement(p):
 	"""statement : assignation ';'
 				| structure
-				| condition"""
+				| condition
+				| call ';'"""
 	p[0] = p[1]
 
 def p_assignation(p):
@@ -78,7 +95,7 @@ def p_expression_identifier(p):
 
 def p_expression_numcolor(p):
 	"""expression : NUMBER
-					| COLOR"""
+				  | COLOR"""
 	p[0] = AST.TokenNode(p[1])
 
 def p_expression_uminus(p):

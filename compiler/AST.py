@@ -157,7 +157,9 @@ class ParametersNode(Node):
 class CodeNode(Node):
 	type = 'code'
 		
-    
+class CallNode(Node):
+	type = 'call'
+		
 def addToClass(cls):
     ''' Décorateur permettant d'ajouter la fonction décorée en tant que méthode
     à une classe.
