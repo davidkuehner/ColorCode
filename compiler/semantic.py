@@ -97,6 +97,8 @@ if __name__ == '__main__':
 	prog = open(sys.argv[1]).read()
 	ast = parse(prog)
 	ast.verify()
+	if len(errors) == 0:
+		print("Code is semantically valid")
 	for error in errors:
 		print(error)
 	
