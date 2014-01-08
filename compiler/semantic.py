@@ -21,6 +21,8 @@ def verify(self):
 	for c in self.children:
 		c.verify()
 		
+	return errors
+		
 @addToClass(AST.FunctionNode)
 def verify(self):
 	del varsInScope[:]
@@ -41,12 +43,12 @@ def verify(self):
 	
 	if name not in functions.keys():
 		errors.append("Undefined function: %s" % name)
-
-	if(len(params) != len(functions[self.children[0].tok].children[0].children)):
-		errors.append("Wrong number of parameters passed to function: %s" % name)
-		
-	for c in self.children[1].children:
-		c.verify()
+	else:
+		if(len(params) != len(functions[self.children[0].tok].children[0].children)):
+			errors.append("Wrong number of parameters passed to function: %s" % name)
+			
+		for c in self.children[1].children:
+			c.verify()
 
 @addToClass(AST.TokenNode)
 def verify(self):

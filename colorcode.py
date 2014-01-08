@@ -110,7 +110,7 @@ if __name__ == '__main__':
 	import sys
 	prog = open(sys.argv[1]).read()
 	ast = parse(prog)
-	errors = verify(ast)
+	errors = ast.verify()
 	if len(errors) == 0:
 		ast.execute()
 		writeSquareImage(image, os.path.splitext(sys.argv[1])[0]+'.png')
