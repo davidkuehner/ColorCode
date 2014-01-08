@@ -1,10 +1,21 @@
-function mul( a, b ) {
-	IMAGE << a*b;
+function tenShades( color ) {
+    i = 0;
+    while( i < 10 ) {
+        IMAGE << color;
+        color = color - 0.07;
+        i = i + 1;
+    }
 }
 
 function main() {
-	orange = MOCCASIN;
-	IMAGE << orange;
-	mul( orange, 2);
-	IMAGE << myCol;
+    tenShades( BLUE );
+    tenShades( OLIVE );
+    tenShades( CRIMSON );
+    tenShades( DARKGREEN );
+    tenShades( DARKORANGE );
+    tenShades( DARKCYAN );
+    tenShades( DARKRED );
+    tenShades( DARKSLATEBLUE );
+    tenShades( DEEPSKYBLUE );
+    tenShades( BLACK );
 }

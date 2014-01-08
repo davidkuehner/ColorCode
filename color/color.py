@@ -81,7 +81,7 @@ class Color:
 		else:
 			raise NameError('Wrong multiplyer type. \n Should be Color or float')
 	def __rmul__(self, other):
-		return self.__mul__(self, other)
+		return self.__mul__(other)
 		
 	def __truediv__(self, other):
 		if isinstance(other,Color):
@@ -95,9 +95,6 @@ class Color:
 		else:
 			raise NameError('Wrong divider type. \n Should be Color or float')
 
-	def __rtruediv__(self, other):
-		return self.__truediv__(self, other)
-
 	def __add__(self, other):
 		if isinstance(other,Color):
 			return Color.colorOpColor['+'](self,other)
@@ -106,9 +103,6 @@ class Color:
 		else:
 			raise NameError('Wrong type added to Color. \n Should be Color or float')
 
-	def __radd__(self, other):
-		return self.__add__(self, other)
-
 	def __sub__(self, other):
 		if isinstance(other,Color):
 			return Color.colorOpColor['-'](self,other)
@@ -116,9 +110,6 @@ class Color:
 			return Color.colorOpFloat['-'](self,other)
 		else:
 			raise NameError('Wrong type substracted to Color. \n Should be Color or float')
-
-	def __rsub__(self, other):
-		return self.__sub__(self, other)
 			
 	def __eq__(self, other):
 		if isinstance(other,Color):
